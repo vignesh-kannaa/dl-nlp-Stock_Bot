@@ -1,0 +1,75 @@
+.pageMargin {
+  padding: 100px;
+}
+.banner {
+  padding-bottom: 200px;
+  background-color: #046cf1;
+  color: white;
+}
+h1 {
+  font-size: 66px;
+  font-weight: 900;
+  line-height: 1;
+}
+h2 {
+  font-size: 45px;
+  font-weight: bold;
+  color: #1b242f;
+}
+.bannerPad {
+  padding: 20px 30px;
+}
+.bannerPadtext {
+  line-height: 1.5;
+  padding: 20px 130px 20px 40px;
+}
+.banner-img {
+  margin: auto;
+  text-align: center;
+}
+.banner-img img {
+  width: 350px;
+}
+ion-text {
+  color: #abd8f9;
+}
+ion-toolbar {
+  --background: #046cf1;
+  --color: white;
+}
+ion-chip {
+  font-size: 20px;
+  padding: 0 25px;
+  margin: 25px;
+  height: 60px;
+  color: white;
+  background: #046cf1;
+}
+
+ion-button {
+  --background: #f2f2f2;
+  text-transform: none;
+  font-weight: bold;
+  width: 250px;
+  height: 50px;
+}
+.btn {
+  font-size: 20px;
+  height: 60px;
+  color: black;
+  --border-radius: 25px;
+}
+.section {
+  text-align: center;
+}
+.bot1 {
+  height: auto;
+  width: 300px;
+}
+.text-format {
+  font-size: 22px;
+  padding: 0px 230px 80px 230px;
+}
+.btn-pad {
+  padding: 0 0 0 15px;
+}

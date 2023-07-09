@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 import uvicorn
 from fastapi.templating import Jinja2Templates
-
+from fastapi.staticfiles import StaticFiles
 from fastapi import Request
 from fastapi.responses import JSONResponse
 from src.db_connection import StockDB
@@ -12,6 +12,8 @@ import json
 application = FastAPI()
 app = application
 templates = Jinja2Templates(directory="templates")
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 
 customerId = 101
 
@@ -74,10 +76,25 @@ def getPortfolio(payload):
 def getTransactionHistory(payload):
     db = StockDB()
     data = db.transactionHitory()
-    table_data = []
+    result = 'Stock Transactions:\n'
     for row in data:
         company, symbol, quantity, action, timestamp, price = row
-        table_data.append({
+        result += company+' - '+action+'\n' + \
+            'Quantity: '+str(quantity)+'\n' +\
+            'Price: '+str(price)+'\n' +\
+            'Date: '+timestamp.strftime('%Y-%m-%d %H:%M:%S')+'\n' + '---'+'\n'
+
+    print(result)
+    return result
+
+
+def getPortfolioPerformance(payload):
+    db = StockDB()
+    data = db.transactionHitory()
+    transHist = []
+    for row in data:
+        company, symbol, quantity, action, timestamp, price = row
+        transHist.append({
             'Company': company,
             'Symbol': symbol,
             'Quantity': quantity,
@@ -85,15 +102,6 @@ def getTransactionHistory(payload):
             'Timestamp': timestamp.strftime('%Y-%m-%d %H:%M:%S'),
             'Price': str(price)
         })
-    # converting to string
-    result = json.dumps(table_data)
-    print(result)
-    return result
-
-
-def getPortfolioPerformance(payload):
-    transHist = getTransactionHistory('')
-    transHist = eval(transHist)
     currentMarket = []
     stockAPI = StockAPI()
     unique_companies = set()
