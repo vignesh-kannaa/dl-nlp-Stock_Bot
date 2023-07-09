@@ -16,10 +16,10 @@ import mysql.connector
 class StockDB:
     def __init__(self,):
         self.config = {
-            'user': 'root',
-            'password': 'password@321',
-            'host': 'localhost',
-            'database': 'stockbot',
+            'user': 'sql8631590',
+            'password': 'w9tX7eTdjH',
+            'host': 'sql8.freesqldatabase.com',
+            'database': 'sql8631590',
             'raise_on_warnings': True
         }
         self.cnx = None
