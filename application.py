@@ -1,31 +1,40 @@
-from fastapi import FastAPI
-import uvicorn
-from fastapi.templating import Jinja2Templates
-from fastapi.staticfiles import StaticFiles
-from fastapi import Request
-from fastapi.responses import JSONResponse
+# from fastapi import FastAPI
+# import uvicorn
+# from fastapi.templating import Jinja2Templates
+# from fastapi.staticfiles import StaticFiles
+# from fastapi import Request
+# from fastapi.responses import JSONResponse
+# import json
+
+# application = FastAPI()
+# app = application
+# templates = Jinja2Templates(directory="templates")
+# app.mount("/static", StaticFiles(directory="static"), name="static")
+
+from flask import Flask, request, render_template,jsonify
 from src.db_connection import StockDB
 from src.stocksApi import StockAPI
 import src.helper as helper
-import json
 
-application = FastAPI()
+application = Flask(__name__)
 app = application
-templates = Jinja2Templates(directory="templates")
-app.mount("/static", StaticFiles(directory="static"), name="static")
+
+customerId = 101 #tesing with customerId
 
 
-customerId = 101
+# @app.get("/")
+# async def index(request: Request):
+#     return templates.TemplateResponse("index.html", {"request": request})
 
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-@app.get("/")
-async def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
-
-
-@app.post("/fulfillment")
-async def fulfilmentRequest(request: Request):
-    payload = await request.json()
+# @app.post("/fulfillment")
+# async def fulfilmentRequest(request: Request):
+@app.route('/fulfillment', methods=['POST'])
+def fulfilmentRequest():
+    payload = request.json
     intent = payload['queryResult']['intent']['displayName']
     res = ''
     print('intent: ', intent)
@@ -41,7 +50,7 @@ async def fulfilmentRequest(request: Request):
     else:
         res = 'Invalid intent'
 
-    return JSONResponse(content={"fulfillmentText": res})
+    return jsonify(content={"fulfillmentText": res})
 
 
 def getCurrentPrice(payload):
@@ -68,7 +77,7 @@ def getPortfolio(payload):
     dbData = helper.calculateStocksByTransactionType(transactions)
     result = ''
     for company, count in dbData.items():
-        result += f"{count} shares in {company} ;"
+        result += f"{count} shares in {company} " +'\n'
     print(result)
     return result
 
@@ -117,13 +126,12 @@ def getPortfolioPerformance(payload):
             'Price': currentPrice
         })
     result = helper.calcualteGainLoss(transHist, currentMarket)
-    result = json.dumps(result)
     print(result)
     return result
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0")
+    app.run(host="0.0.0.0")
 
     # uvicorn main:app --reload
     # ngrok http 8000

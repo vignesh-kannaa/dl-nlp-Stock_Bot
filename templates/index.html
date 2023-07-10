@@ -18,7 +18,7 @@
     <link
       rel="stylesheet"
       type="text/css"
-      href="{{ url_for('static', path='/index.css') }}"
+      href="{{ url_for('static', filename='index.css') }}"
     />
   </head>
   <style>
@@ -64,7 +64,7 @@
             </ion-col>
             <ion-col class="banner-img">
               <img
-                src="{{ url_for('static', path='bot.gif') }}"
+                src="{{ url_for('static', filename='bot.gif') }}"
                 alt="Animated
               GIF"
             /></ion-col>
@@ -90,7 +90,7 @@
                 <ion-col>
                   <img
                     class="bot1"
-                    src="{{ url_for('static', path='bot1.gif') }}"
+                    src="{{ url_for('static', filename='bot1.gif') }}"
                     alt="Animated GIF"
                 /></ion-col>
                 <ion-col>

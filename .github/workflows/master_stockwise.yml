@@ -37,7 +37,7 @@ jobs:
         with:
           name: python-app
           path: |
-            main.py
+            . 
             !venv/
 
   deploy:
@@ -61,4 +61,3 @@ jobs:
           app-name: "stockwise"
           slot-name: "Production"
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E29F92509D79465A8B429B757BC7F59D }}
-          start-up-command: "gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker"
