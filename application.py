@@ -55,9 +55,9 @@ def getCurrentPrice(payload):
             data = stockAPI.stockById(company)
             currentPrice = data["financialData"]["currentPrice"]["raw"]
             if number:
-                result = f"{number} stocks in {company} - {number * currentPrice} "+'\n'
+                result = f"{int(number)} stocks in {company} - $ {(number * currentPrice):.2f} "+'\n'
             else:
-                result = f"{company} - $ {currentPrice}  "
+                result = f"{company} - $ {currentPrice:.2f}  "
     return result
 
 
@@ -116,8 +116,14 @@ def getPortfolioPerformance(payload):
             'Price': currentPrice
         })
     result = helper.calcualteGainLoss(transHist, currentMarket)
-    print(result)
-    return result
+    response=''
+    for symbol, (amount, percentage) in result.items():
+        if amount > 0:
+            response+= f"{symbol}: Gain: ${amount:.2f} ({percentage:.2f}%)" +'\n'
+        else:
+            response+= f"{symbol}: Loss: ${abs(amount):.2f} ({percentage:.2f}%)" +'\n'
+    print(response)
+    return response
 
 
 if __name__ == "__main__":

@@ -28,5 +28,7 @@ def calcualteGainLoss(transHistory, currentMarket):
             if current_value is not None:
                 current_value = float(current_value)
                 gain_loss[symbol] = (current_value - buy_price) * quantity
+                percentage = (current_value - buy_price) / buy_price * 100
+                gain_loss[symbol] = (gain_loss[symbol], percentage)
 
     return gain_loss
