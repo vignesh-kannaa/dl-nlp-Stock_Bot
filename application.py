@@ -57,7 +57,7 @@ def getCurrentPrice(payload):
             if number:
                 result = f"{number} stocks in {company} - {number * currentPrice} "+'\n'
             else:
-                result = f"{company} - {currentPrice}  "
+                result = f"{company} - $ {currentPrice}  "
     return result
 
 
@@ -80,7 +80,7 @@ def getTransactionHistory(payload):
         company, symbol, quantity, action, timestamp, price = row
         result += company+' - '+action+'\n' + \
             'Quantity: '+str(quantity)+'\n' +\
-            'Price: '+str(price)+'\n' +\
+            'Price: $ '+str(price)+'\n' +\
             'Date: '+timestamp.strftime('%Y-%m-%d %H:%M:%S')+'\n' + '---'+'\n'
 
     print(result)
