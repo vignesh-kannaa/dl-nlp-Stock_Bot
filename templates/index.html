@@ -43,13 +43,14 @@
           <ion-row>
             <ion-col size="8">
               <h1 class="bannerPad">
-                Revolutionise Customer Service with Chatbot
+                Transform Customer Experience with StockBot
               </h1>
               <div class="bannerPadtext">
                 <ion-text style="padding-right: 60px; font-size: 22px">
-                  Say good bye to long wait hours and frustrating interactions.
-                  This chatbot provides 24 assitance and Personalized service
-                  for your customer
+                  Say goodbye to manual calculations and tedious research.
+                  StockBot simplifies the stock management process, empowering
+                  you to make informed decisions and stay on top of your
+                  investments.
                 </ion-text>
               </div>
               <div class="bannerPad">
@@ -73,11 +74,14 @@
         <ion-grid>
           <ion-row class="section pageMargin">
             <ion-col>
-              <h2>Advanced AI Technology</h2>
+              <h2>Cutting-Edge NLP Techniques</h2>
               <p class="text-format">
-                Our robot uses advanced artificial intelligence technology to
-                understand and respond to customer inquiries, providing accurate
-                and efficient assitance
+                Our StockBot uses advanced technology to understand and answer
+                customer questions with accuracy and efficiency. It employs
+                smart techniques from Dialogflow to understand natural language
+                and provide relevant responses. Additionally, StockBot fetches
+                real-time stock values from Yahoo Finance, ensuring users have
+                the most up-to-date information for informed decision-making
               </p>
               <ion-row>
                 <ion-col>
@@ -104,19 +108,23 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-        <!-- <div id="chatbot" class="chatbot"> -->
-        <!-- <iframe
-            src="https://console.dialogflow.com/api-client/demo/embedded/e05b1a8f-6e58-4e5e-93b5-f02028fe3c1f"
-          ></iframe> -->
-        <!-- </div> -->
         <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
         <df-messenger
           intent="WELCOME"
           chat-title="Stock-Bot"
           agent-id="e05b1a8f-6e58-4e5e-93b5-f02028fe3c1f"
           language-code="en"
+          expand="false"
         ></df-messenger>
       </ion-content>
     </ion-app>
+    <script>
+      document
+        .getElementById("startBtn")
+        .addEventListener("click", function () {
+          const dfMessenger = document.querySelector("df-messenger");
+          dfMessenger.setAttribute("expand", "true");
+        });
+    </script>
   </body>
 </html>

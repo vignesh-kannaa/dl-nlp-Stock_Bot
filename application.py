@@ -1,16 +1,3 @@
-# from fastapi import FastAPI
-# import uvicorn
-# from fastapi.templating import Jinja2Templates
-# from fastapi.staticfiles import StaticFiles
-# from fastapi import Request
-# from fastapi.responses import JSONResponse
-# import json
-
-# application = FastAPI()
-# app = application
-# templates = Jinja2Templates(directory="templates")
-# app.mount("/static", StaticFiles(directory="static"), name="static")
-
 from flask import Flask, request, render_template,jsonify
 from src.db_connection import StockDB
 from src.stocksApi import StockAPI
@@ -21,17 +8,10 @@ app = application
 
 customerId = 101 #tesing with customerId
 
-
-# @app.get("/")
-# async def index(request: Request):
-#     return templates.TemplateResponse("index.html", {"request": request})
-
 @app.route('/')
 def index():
     return render_template('index.html')
 
-# @app.post("/fulfillment")
-# async def fulfilmentRequest(request: Request):
 @app.route('/fulfillment', methods=['POST'])
 def fulfilmentRequest():
     payload = request.json
@@ -50,7 +30,17 @@ def fulfilmentRequest():
     else:
         res = 'Invalid intent'
 
-    return jsonify(content={"fulfillmentText": res})
+    # return jsonify(content={"fulfillmentText": res})
+    response = {
+        "fulfillmentMessages": [
+            {
+                "text": {
+                    "text": [res]
+                }
+            }
+        ]
+    }
+    return jsonify(response)
 
 
 def getCurrentPrice(payload):
@@ -65,9 +55,9 @@ def getCurrentPrice(payload):
             data = stockAPI.stockById(company)
             currentPrice = data["financialData"]["currentPrice"]["raw"]
             if number:
-                result = f"{number} stocks in {company} - {number * currentPrice} ; "
+                result = f"{number} stocks in {company} - {number * currentPrice} "+'\n'
             else:
-                result = f"{company} - {currentPrice} ; "
+                result = f"{company} - {currentPrice}  "
     return result
 
 
