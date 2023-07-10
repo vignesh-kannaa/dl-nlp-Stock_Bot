@@ -123,7 +123,7 @@ def getPortfolioPerformance(payload):
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0")
+    uvicorn.run("main:app", host="0.0.0.0", port=8080)
 
     # uvicorn main:app --reload
     # ngrok http 8000
