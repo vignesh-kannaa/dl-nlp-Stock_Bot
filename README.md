@@ -1,4 +1,7 @@
 Personalized Stock Manager
+
+<br/>
+This project involves a chatbot that gives you live updates on stocks and helps you manage your own stock portfolio stored in a MySQL database. It was built using Google's Dialogflow natural language processing technology and deployed on the Azure cloud platform.
 <br/>
 <br/>
 
